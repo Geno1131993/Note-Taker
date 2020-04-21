@@ -7,8 +7,7 @@ var fs = require("fs");
 
 function handle(request, response){
     var path = request.url;
-    //console.log(path);
-    //response.end("Path: " + path);
+ 
     displayHome(response);
 
 
@@ -18,14 +17,17 @@ function handle(request, response){
 
 
 function displayHome(response){
-    fs.readFile(__dirname + "/public/index.html", function(err, data){
-        if(err) throw err;
-        response.writeHead(200, {"Content-Type": "text/html"});
-        response.end(data);
-
-    });
+   read("index.html", response);
 }
 
+
+function read(filename, response){
+    fs.readFile(__dirname + "/public/" + filename, function(err, data){
+        if (err) throw err;
+        response.writeHead(200, {"Content-Type": "text/html"});
+        response.end(data);
+    });
+}
 
 server.listen(PORT, function(){
    // console.log("Server listening on: http://localhost:" + PORT);
